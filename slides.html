@@ -53,46 +53,93 @@
 </section>
 
 <section>
-  <p>Think of rules as filters, by applying them you can sift out and alter code
+  <div style="width: 30%; float: left">
+  <img src="pre-commit-flow.png" style="height:600px">
+  </div>
+  <div style="width: 60%; float: left;">
+    <p style="font-size: xx-large">Think of rules as filters, by applying them you can sift out and alter code
   before hitting version control</p>
+  </div>
 </section>
 
 <section>
-    <h3>More incrementals</h3>
-    <p class="next">Not only list elements can appear incrementally</p>
-    <p><mark class="next">Styles</mark> can be incremental
-       <mark class="next">too</mark></p>
+  <h3>Setup</h3>
+  <ol>
+    <li>Install <code>pre-commit</code>
+      <ul>
+        <li>Use your package manager</li>
+        <li>Or <code>pip install pre-commit</code></li>
+      </ul>
+    <li>Navigate to the git repo</li>
+    <li><code>pre-commit sample-config > .pre-commit-config.yaml</code></li>
+    <li><code>pre-commit install</code></li>
+    <li>pre-commit will now check your code with the default config</li>
+  </ol>
 </section>
 
 <section>
-    <h3>Even more incrementals</h3>
-    <p>
-      <span class="next" next-order="3">They</span>
-      <span class="next" next-order="5">can</span>
-      <span class="next" next-order="2">even</span>
-      <span class="next" next-order="1">appear</span>
-      <span class="next" next-order="7">in</span>
-      <span class="next" next-order="4">any</span>
-      <span class="next" next-order="6">order</span>
-      <span class="next" next-order="8">!</span>
-    </p>
+  <h3><code>.pre-commit-config.yaml</code></h3>
+  <pre>
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.2.0
+    hooks:
+    -   id: trailing-whitespace
+    -   id: end-of-file-fixer
+    -   id: check-yaml
+    -   id: check-added-large-files
+</pre>
+<ul>
+  <li>A <em>repo</em> is a collection of <em>hooks</em>, specified by <code>id:</code></li>
+  <li>Some hooks can take parameters</li>
+</ul>
+</section>
+<section>
+  <h3>Example for Python</h3>
+  <pre>
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.5
+    hooks:
+    # ruff performs linting
+      - id: ruff
+        args: <mark>[ --fix ]</mark>
+    # ruff-format performs autoformatting
+      - id: ruff-format
+  </pre>
+</section>
+<section>
+  <h1>Walkthrough</h1>
+</section>
+<section>
+  <h3>Collaborative <code>pre-commit</code>ment</h3>
+  <ul>
+    <li>Talk to your colleagues!<br>
+    <small>End of workday &rightarrow; <code>git commit</code> &rightarrow; 🤯</small></li>
+    <li>Pre-commit together!</li>
+    <li>Clear onboarding instructions</li>
+    <li>Start with the sample-config and basic linting</li>
+  </ul>
 </section>
 
 <section>
-  <blockquote>
-    Who's brave enough to fly into something we all keep calling a death sphere?
-  </blockquote>
-  <details>
-    <p>In the onstage shell, notes scroll rather than overflow:</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac dui eu est feugiat lacinia sit amet nec leo. Mauris eu ipsum leo. Nulla mi odio, cursus sed sollicitudin non, fringilla id magna. Suspendisse sit amet posuere elit. Maecenas iaculis, turpis a placerat imperdiet, libero lorem feugiat nisi, nec tincidunt diam nibh sit amet massa. Vestibulum quis adipiscing tellus. Maecenas sollicitudin sodales pulvinar. Donec dui ipsum, bibendum facilisis consequat interdum, tempus ut mauris. Aliquam ut dolor nec odio scelerisque bibendum quis in neque. Aliquam dui dui, pulvinar quis fermentum quis, gravida eu augue. Nunc tristique dolor a urna pulvinar bibendum. Curabitur mollis cursus neque, in scelerisque metus porta non. Donec tempor enim in nibh vestibulum et convallis nisi malesuada. Duis ut lectus sed metus venenatis porttitor id pharetra quam. Suspendisse sapien turpis, ornare in molestie et, gravida eget turpis.
-    </p>
-  </details>
+  <h3>Resources</h3>
+  <ul>
+    <li>Pre-commit website: <a href="https://pre-commit.com">pre-commit.com</a></li>
+    <li>Hooks for languages, configuration files (including CI such as GitHub Actions), spellchecking:<br><a href="https://pre-commit.com/hooks.html">https://pre-commit.com/hooks.html</a></li>
+    <li>Run pre-commit in CI with autofixes: <a href="https://pre-commit.ci">https://pre-commit.ci</a></li>
+    <li>Collecting common pre-commit configs from the RSE community at this repo,
+      submit a pull request!</li>
+  </ul>
 </section>
-
-<section>
-    <h1>Part two</h1>
-</section>
-
 <!-- Your Style -->
 <!-- Define the style of your presentation -->
 <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
@@ -140,12 +187,10 @@
   pre {
     overflow: hidden;
     font-size: 1.25rem;
-    margin: 0 75px 0 75px;
-    padding: 10px;
-    border: 1px solid;
-    font-weight: bold;
+    margin: 0 45px;
+    padding: 15px;
     background-color: #F7F7F7;
-    width:80%
+    width:90%
   }
 
   ul, ol {
