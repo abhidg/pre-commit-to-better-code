@@ -4,27 +4,31 @@
 <title>Pre-commit to better code</title>
 
 <header>
-  <a href="https://github.com/abhidg/pre-commit-to-better-code">https://github.com/abhidg/pre-commit-to-better-code</a>
+  Pre-commit to better code
 </header>
 
 <section>
     <!-- This is the first slide -->
     <h1>Pre-commit to better code</h1>
-    <footer><small>Abhishek Dasgupta, RSECon25</small></footer>
+    <div class="authorinfo">
+    <p>Abhishek Dasgupta<br><small>RSECon25, Warwick</small></p>
+    <p><code>https://github.com/abhidg/pre-commit-to-better-code</code></p>
+    </div>
+    <footer>
+      <img style="height:3rem" src="https://www.rse.ox.ac.uk/sites/default/files/rse/site-logo/2024_oxrse_next_to_oxford.svg" alt="Oxford RSE logo"/>
 </section>
 
 <section>
   <h3>Why pre-commit?</h2>
+  <h4>Workflow without pre-commit</h4>
   <ul>
-    <li><strong>Workflow without pre-commit</strong></li>
     <li>Write code</li>
     <li>Commit</li>
     <li>git push</li>
     <li>CI/CD, e.g. GitHub Actions</li>
   </ul>
-  <hr>
+  <h4>What runs in CI/CD</h4>
   <ul>
-    <li><strong>What runs in CI/CD</strong></li>
     <li>Linting (flake8, ruff, lintr)</li>
     <li>Type checking (mypy</li>
     <li>Unit and integration tests</li>
@@ -32,14 +36,12 @@
 </section>
 
 <section>
-    <figure>
-      <img class="xkcd" src="https://imgs.xkcd.com/comics/compiling.png" style="width: 600px; height: 500px">
-    </figure>
-</section>
-
-<section>
-  <p>What if we could check for (and correct) these common issues even before
-  <s>compiling</s> committing?</p>
+  <p style="font-size:50%;color: grey">
+  <img src="https://imgs.xkcd.com/comics/git_commit.png">
+  xkcd.com/1296
+  </p>
+  <p style="font-size: 2.2rem">What if we could check for (and correct) these common issues even before
+  committing?</p>
 </section>
 
 <section>
@@ -92,8 +94,9 @@ repos:
     -   id: check-added-large-files
 </pre>
 <ul>
-  <li>A <em>repo</em> is a collection of <em>hooks</em>, specified by <code>id:</code></li>
-  <li>Some hooks can take parameters</li>
+  <li>A <em>repo</em> is a collection of <em>hooks</em>, specified by <code>id</code>.
+    Some hooks can take parameters</li>
+  <li>Once <code>pre-commit</code> is setup, it will activate on every <code>git commit</code> call</p>
 </ul>
 </section>
 <section>
@@ -116,6 +119,40 @@ repos:
       - id: ruff-format
   </pre>
 </section>
+
+<section>
+  <h3>Initial pre-commit run</h3>
+<pre style="font-size: 0.84rem;margin-top: -2rem">
+$ pre-commit run --all-files
+[INFO] Installing environment for https://github.com/pre-commit/pre-commit-hooks.
+[INFO] Once installed this environment will be reused.
+[INFO] This may take a few minutes...
+[INFO] Installing environment for https://github.com/astral-sh/ruff-pre-commit.
+[INFO] Once installed this environment will be reused.
+[INFO] This may take a few minutes...
+check yaml...............................................................Passed
+fix end of files.........................................................Passed
+trim trailing whitespace.................................................Passed
+ruff.....................................................................<mark>Failed</mark>
+- hook id: ruff
+- exit code: 1
+
+docs/tutorial/zonal_stats.ipynb:cell 3:9:1: E402 Module level import not at top of cell
+   |
+ 7 | here = Path.cwd().parent / "data"
+ 8 |
+ 9 | from geoglue.memoryraster import MemoryRaster
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+10 |
+11 | # Here we load data from a shapefile, but we can also use the
+   |
+
+Found 1 error.
+
+ruff-format..............................................................Passed
+</pre>
+</section>
+
 <section>
   <h1>Walkthrough</h1>
 </section>
@@ -136,20 +173,35 @@ repos:
     <li>Pre-commit website: <a href="https://pre-commit.com">pre-commit.com</a></li>
     <li>Hooks for languages, configuration files (including CI such as GitHub Actions), spellchecking:<br><a href="https://pre-commit.com/hooks.html">https://pre-commit.com/hooks.html</a></li>
     <li>Run pre-commit in CI with autofixes: <a href="https://pre-commit.ci">https://pre-commit.ci</a></li>
-    <li>Collecting common pre-commit configs from the RSE community at this repo,
+    <li>Collecting common pre-commit configs from the RSE community at<br>
+      <a href="https://github.com/abhidg/pre-commit-to-better-code">https://github.com/abhidg/pre-commit-to-better-code</a>,
       submit a pull request!</li>
   </ul>
 </section>
 <!-- Your Style -->
 <!-- Define the style of your presentation -->
-<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
 <style>
   html, .view body { background-color: black; counter-reset: slideidx; }
   body, .view section {
     background-color: white;
-    font-family: Inter, DejaVu Sans, Verdana, sans-serif;
-    font-size: 90%;
+    font-family: Noto Sans, DejaVu Sans, Verdana, sans-serif;
+    font-size: 80%;
+  }
+
+  div.authorinfo {
+    text-align: center;
+  }
+
+  div.authorinfo p {
+    font-size: 1.5rem;
+  }
+  
+  div.authorinfo code {
+    font-size: 1.2rem;
   }
 
   section, .view head > title {
@@ -172,7 +224,8 @@ repos:
   h1 {
     margin: 120px 0 30px 0;
     text-align: center;
-    font-size: 5rem;
+    font-size: 3rem;
+    font-weight: normal;
   }
 
   h2 {
@@ -184,9 +237,14 @@ repos:
     border-bottom: 0.1px solid;
   }
 
+  h4 {
+    margin: 10px 50px;
+    font-size: rem;
+  }
+
   pre {
     overflow: hidden;
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     margin: 0 45px;
     padding: 15px;
     background-color: #F7F7F7;
@@ -194,7 +252,7 @@ repos:
   }
 
   ul, ol {
-      margin: 40px 100px 0 100px;
+      margin: 20px 100px;
   }
 
   li > ul, ol {
@@ -209,13 +267,17 @@ repos:
 
   p {
     margin: 75px 75px 0 75px;
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
 
   table {
     margin: auto;
     font-size:2.5rem;
     text-align: center;
+  }
+
+  li {
+    font-size: 1.75rem;
   }
 
   blockquote {
