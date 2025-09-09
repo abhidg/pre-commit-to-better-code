@@ -48,3 +48,15 @@ Hooks under the same repo can also be combined:
         # next line is optional, if you want to install type stubs
         # additional_dependencies: [types-requests]
 ```
+
+## Finding undeclared dependencies
+
+[FawltyDeps](https://tweag.github.io/FawltyDeps) finds missing or undeclared dependencies as well as unused dependencies. It can be run in CI and as a pre-commit hook.
+
+```yaml
+- repo: https://github.com/tweag/FawltyDeps
+  rev: v0.20.0
+  hooks:
+     - id: check-undeclared
+     - id: check-unused
+```
