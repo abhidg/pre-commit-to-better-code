@@ -36,11 +36,6 @@ Hooks under the same repo can also be combined:
       args: [ --fix ]
     # Run the formatter.
     - id: ruff-format
-- repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.12.12
-  hooks:
-    # Run the formatter.
-    - id: ruff-format
 ```
 
 ## Typechecking
