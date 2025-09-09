@@ -26,12 +26,11 @@
     <li>Commit</li>
     <li>git push</li>
     <li>CI/CD, e.g. GitHub Actions</li>
-  </ul>
-  <h4>What runs in CI/CD</h4>
-  <ul>
-    <li>Linting (flake8, ruff, lintr)</li>
-    <li>Type checking (mypy</li>
-    <li>Unit and integration tests</li>
+    <ul>
+      <li>Linting (flake8, ruff, lintr)</li>
+      <li>Type checking (mypy)</li>
+      <li>Unit and integration tests</li>
+    </ul>
   </ul>
 </section>
 
@@ -47,21 +46,17 @@
 <section>
   <h3>pre-commit</h3>
   <ul>
-    <li>defined rules</li>
-    <li>execution before every commit</li>
-    <li>checks: fail committing</li>
-    <li>fixes: changes source files before committing</li>
+    <li>Defined rules</li>
+    <li>Execution on every <code>git commit</code></li>
+    <li>Checks: suceeds or fails</li>
+    <li>Fixes: changes source files before committing</li>
+    <li>Rules are like filters, by applying them you can sift out and alter code
+  before hitting version control</li>
   </ul>
 </section>
 
 <section>
-  <div style="width: 30%; float: left">
-  <img src="pre-commit-flow.png" style="height:600px">
-  </div>
-  <div style="width: 60%; float: left;">
-    <p style="font-size: xx-large">Think of rules as filters, by applying them you can sift out and alter code
-  before hitting version control</p>
-  </div>
+  <img src="pre-commit-flow.png" style="width:100%" alt="Pre-commit flow">
 </section>
 
 <section>
@@ -175,7 +170,7 @@ ruff-format..............................................................Passed
     <li>Run pre-commit in CI with autofixes: <a href="https://pre-commit.ci">https://pre-commit.ci</a></li>
     <li>Collecting common pre-commit configs from the RSE community at<br>
       <a href="https://github.com/abhidg/pre-commit-to-better-code">https://github.com/abhidg/pre-commit-to-better-code</a>,
-      submit a pull request!</li>
+      submit a PR or create an issue!</li>
   </ul>
 </section>
 <!-- Your Style -->
